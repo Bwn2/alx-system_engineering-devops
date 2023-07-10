@@ -1,12 +1,12 @@
 #!/bin/bash
 
-shopt -s globstar nullglob
+shopt -s globstar nullglob extglob
 
 for file in **/*.gif; do
     if [[ -f $file ]]; then
-        filename=$(basename "$file")
-        filename="${filename%.*}"
-        echo "$filename"
+        file=${file##*/}
+        file=${file%.gif}
+        echo "$file"
     fi
-done | LC_ALL=C sort -f
+done | LC_COLLATE=C sort -f
 
