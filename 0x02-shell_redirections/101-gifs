@@ -1,4 +1,12 @@
 #!/bin/bash
 
-find . -type f -name '*.gif' | sed -e 's/\.gif$//' | sort -f | awk -F/ '{print $NF}'
+shopt -s globstar nullglob
+
+for file in **/*.gif; do
+    if [[ -f $file ]]; then
+        filename=$(basename "$file")
+        filename="${filename%.*}"
+        echo "$filename"
+    fi
+done | LC_ALL=C sort -f
 
